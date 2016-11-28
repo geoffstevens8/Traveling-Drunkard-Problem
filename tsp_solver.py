@@ -8,25 +8,25 @@ with open('distance_matrix.csv', 'rb') as f:
         dist_matrix.append(row)
 
 def randomTour(bars):
-  """Function returns length of random bar tour"""
+  """Function returns length of random bar tour and the path of the tour"""
   shuffle(bars)
   total_distance = 0
   prev_bar = bars.pop(0)
   for bar in bars:
     total_distance += int(dist_matrix[prev_bar][bar])
     prev_bar = bar
-  return total_distance
+  return (total_distance, bars)
 
 def greedyTour(bars):
   """
-  Function returns length of greedy bar tour
+  Function returns length of greedy bar tour and the path of the tour
 
   Starts by finding the shortest path among all the given bars,
   and then choses the next closest bar until all bars have been visited
   """
 
   #find the first and second bars greedily
-  visited_bars = set()
+  visited_bars = []
   total_distance = 0
   min_dist = float('inf')
   for i in range(len(bars)):
@@ -36,7 +36,7 @@ def greedyTour(bars):
         first_bar = i
         second_bar = j
   total_distance += min_dist
-  visited_bars.update([first_bar, second_bar])
+  visited_bars.extend([first_bar, second_bar])
   bars = [i for j,i in enumerate(bars) if i not in visited_bars]
   prev_bar = second_bar
 
@@ -48,7 +48,10 @@ def greedyTour(bars):
         min_dist = int(dist_matrix[prev_bar][bar])
         next_bar = bar
     total_distance += min_dist
-    visited_bars.add(prev_bar)
+    visited_bars.append(next_bar)
     bars = [i for j,i in enumerate(bars) if i not in visited_bars]
     prev_bar = next_bar
-  return total_distance
+  return (total_distance, visited_bars)
+
+result = randomTour(range(20))
+print result
