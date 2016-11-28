@@ -28,6 +28,7 @@ Interesting Things to Explore
 
 '''
 import csv
+import knapsack
 
 DIST_MATRIX = []
 with open('distance_matrix.csv', 'rb') as f:
@@ -46,3 +47,8 @@ with open('biz_list.csv', 'rb') as f:
     reader = csv.reader(f)
     for row in reader:
         BAR_LIST.append(row)
+
+
+(r, d, u) = simulated_annealing_knapsack(15000, greedyTour)
+
+print(d)
