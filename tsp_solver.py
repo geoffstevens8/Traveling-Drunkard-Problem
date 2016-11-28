@@ -34,30 +34,34 @@ def greedyTour(bars):
   #find the first and second bars greedily
   visited_bars = []
   total_distance = 0
-  min_dist = float('inf')
-  for i in range(len(bars)):
-    for j in range(i + 1, len(bars)):
-      if int(dist_matrix[i][j]) < min_dist:
-        min_dist = int(dist_matrix[i][j])
-        first_bar = i
-        second_bar = j
-  total_distance += min_dist
-  visited_bars.extend([first_bar, second_bar])
-  bars = [i for j,i in enumerate(bars) if i not in visited_bars]
-  prev_bar = second_bar
-
-  #from the second bar continue to pick the next clostest bar
-  while bars:
-    min_dist = float('inf') 
-    for bar in bars:
-      if int(dist_matrix[prev_bar][bar]) < min_dist:
-        min_dist = int(dist_matrix[prev_bar][bar])
-        next_bar = bar
+  
+  if len(bars) == 1:
+    return (0, bars)
+  else:
+    min_dist = float('inf')
+    for i in range(len(bars)):
+      for j in range(i + 1, len(bars)):
+        if int(dist_matrix[i][j]) < min_dist:
+          min_dist = int(dist_matrix[i][j])
+          first_bar = i
+          second_bar = j
     total_distance += min_dist
-    visited_bars.append(next_bar)
+    visited_bars.extend([first_bar, second_bar])
     bars = [i for j,i in enumerate(bars) if i not in visited_bars]
-    prev_bar = next_bar
-  return (total_distance, visited_bars)
+    prev_bar = second_bar
+
+    #from the second bar continue to pick the next clostest bar
+    while bars:
+      min_dist = float('inf') 
+      for bar in bars:
+        if int(dist_matrix[prev_bar][bar]) < min_dist:
+          min_dist = int(dist_matrix[prev_bar][bar])
+          next_bar = bar
+      total_distance += min_dist
+      visited_bars.append(next_bar)
+      bars = [i for j,i in enumerate(bars) if i not in visited_bars]
+      prev_bar = next_bar
+    return (total_distance, visited_bars)
 
 def twoOptSwap(bars, i, k):
   route_begin = bars[:i]
