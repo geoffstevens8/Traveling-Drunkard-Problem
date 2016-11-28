@@ -27,3 +27,22 @@ Interesting Things to Explore
 3. weighting of swap, remove, add functions in simulated annealing
 
 '''
+import csv
+
+DIST_MATRIX = []
+with open('distance_matrix.csv', 'rb') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        DIST_MATRIX.append(row)
+
+TIME_MATRIX = []
+with open('time_matrix.csv', 'rb') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        TIME_MATRIX.append(row)
+
+BAR_LIST = []
+with open('biz_list.csv', 'rb') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        BAR_LIST.append(row)
