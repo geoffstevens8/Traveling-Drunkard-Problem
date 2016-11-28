@@ -7,10 +7,12 @@ Outputs:
 Final list of bars in order that they should be traveled
 
 '''
-import main
+
 import tsp_solver
 import random
 import copy
+import config
+
 
 ''' KNAPSACK INITIALIZATION '''
 def initialize_knapsack():
@@ -57,7 +59,7 @@ def knapsack_utility(knapsack, utility):
 
 ''' TEMPERATURE FUNCTION '''
 def temperature1(index, utility):
-    return (1./(index+1)) + (1/*utility)
+    return (1./(index+1)) + (1./utility)
 
 ''' MUTATE KNAPSACK FUNCTIONS '''
 def add(knapsack, not_knapsack):

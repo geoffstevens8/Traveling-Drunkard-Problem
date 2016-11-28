@@ -29,26 +29,13 @@ Interesting Things to Explore
 '''
 import csv
 import knapsack
+from tsp_solver import greedyTour
+import config
 
-DIST_MATRIX = []
-with open('distance_matrix.csv', 'rb') as f:
-    reader = csv.reader(f)
-    for row in reader:
-        DIST_MATRIX.append(row)
+config.init()
 
-TIME_MATRIX = []
-with open('time_matrix.csv', 'rb') as f:
-    reader = csv.reader(f)
-    for row in reader:
-        TIME_MATRIX.append(row)
+print(BAR_LIST)
 
-BAR_LIST = []
-with open('biz_list.csv', 'rb') as f:
-    reader = csv.reader(f)
-    for row in reader:
-        BAR_LIST.append(row)
-
-
-(r, d, u) = simulated_annealing_knapsack(15000, greedyTour)
+(r, d, u) = knapsack.simulated_annealing_knapsack(15000, greedyTour)
 
 print(d)
