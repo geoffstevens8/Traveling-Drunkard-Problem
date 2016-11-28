@@ -65,30 +65,39 @@ def temperature1(index, utility):
 
 ''' MUTATE KNAPSACK FUNCTIONS '''
 def add(knapsack, not_knapsack):
-    selection = random.randint(0, len(not_knapsack)-1)
-    to_add = not_knapsack[selection]
-    not_knapsack.remove(to_add)
-    knapsack.append(to_add)
+    if len(not_knapsack) < 1:
+        return knapsack, not_knapsack
+    else:
+        selection = random.randint(0, len(not_knapsack)-1)
+        to_add = not_knapsack[selection]
+        not_knapsack.remove(to_add)
+        knapsack.append(to_add)
 
     return knapsack, not_knapsack
 
 def remove(knapsack, not_knapsack):
-    selection = random.randint(0, len(knapsack)-1)
-    to_remove = knapsack[selection]
-    not_knapsack.append(to_remove)
-    knapsack.remove(to_remove)
+    if len(knapsack) < 2:
+        return knapsack, not_knapsack
+    else:
+        selection = random.randint(0, len(knapsack)-1)
+        to_remove = knapsack[selection]
+        not_knapsack.append(to_remove)
+        knapsack.remove(to_remove)
 
     return knapsack, not_knapsack
 
 def swap(knapsack, not_knapsack):
-    selection1 = random.randint(0, len(knapsack)-1)
-    selection2 = random.randint(0, len(not_knapsack)-1)
-    to_swap1 = knapsack[selection1]
-    to_swap2 = not_knapsack[selection2]
-    knapsack.remove(to_swap1)
-    not_knapsack.remove(to_swap2)
-    knapsack.append(to_swap2)
-    not_knapsack.append(to_swap1)
+    if (len(knapsack) < 1) or (len(not_knapsack) < 1):
+        return knapsack, not_knapsack
+    else:
+        selection1 = random.randint(0, len(knapsack)-1)
+        selection2 = random.randint(0, len(not_knapsack)-1)
+        to_swap1 = knapsack[selection1]
+        to_swap2 = not_knapsack[selection2]
+        knapsack.remove(to_swap1)
+        not_knapsack.remove(to_swap2)
+        knapsack.append(to_swap2)
+        not_knapsack.append(to_swap1)
 
     return knapsack, not_knapsack
 
@@ -111,13 +120,13 @@ def simulated_annealing_knapsack(max_distance, tsp_solver, temperature=temperatu
     all_utilities.append(utility)
 
     # simulated annealing
-    for i in range(100):
+    for i in range(300):
 
         # decide whether to add, remove, or swap as a function of distance
         p = random.uniform(0, 1)
-        if (p < (1./3)) and (len(not_knapsack) > 0):
+        if p < (1./3):
             new_knapsack, new_not_knapsack = add(knapsack, not_knapsack)
-        elif (p < (2./3)) and (len(knapsack) > 1):
+        elif p < (2./3):
             new_knapsack, new_not_knapsack = remove(knapsack, not_knapsack)
         else:
             new_knapsack, new_not_knapsack = swap(knapsack, not_knapsack)
@@ -136,7 +145,7 @@ def simulated_annealing_knapsack(max_distance, tsp_solver, temperature=temperatu
                 distance = new_distance
 
         all_distances.append(distance)
-        all_distances.append(utility)
+        all_utilities.append(utility)
 
     # return the final route and utility
     return (route, all_distances, all_utilities)

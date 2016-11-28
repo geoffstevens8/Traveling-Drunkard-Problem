@@ -25,13 +25,36 @@ Interesting Things to Explore
 1. bar utility functions
 2. different TSP solvers
 3. weighting of swap, remove, add functions in simulated annealing
+4. temperature functions
+5. max distance allowed
+
 
 '''
 import csv
 import knapsack
-from tsp_solver import greedyTour
+import tsp_solver
 import config
+import matplotlib.pyplot as plt
+import numpy as np
 
-(r, d, u) = knapsack.simulated_annealing_knapsack(15000, greedyTour)
+(r, d, u) = knapsack.simulated_annealing_knapsack(50000, tsp_solver.greedyTour)
 
-print(d)
+'''
+plot some stuff with 2 axes with different scales
+'''
+
+fig, ax1 = plt.subplots()
+ax1.plot(d, 'b-')
+ax1.set_xlabel('Iteration')
+ax1.set_ylabel('Distance', color='b')
+for tl in ax1.get_yticklabels():
+    tl.set_color('b')
+
+ax2 = ax1.twinx()
+ax2.plot(u, 'r-')
+ax2.set_ylabel('Utility', color='r')
+for tl in ax2.get_yticklabels():
+    tl.set_color('r')
+plt.show()
+
+print(len(r))
