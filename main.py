@@ -32,10 +32,6 @@ import knapsack
 from tsp_solver import greedyTour
 import config
 
-config.init()
-
-print(BAR_LIST)
-
 (r, d, u) = knapsack.simulated_annealing_knapsack(15000, greedyTour)
 
 print(d)

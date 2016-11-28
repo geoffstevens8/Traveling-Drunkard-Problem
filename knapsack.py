@@ -11,8 +11,10 @@ Final list of bars in order that they should be traveled
 import tsp_solver
 import random
 import copy
-import config
+import csv
 
+import config
+config.init()
 
 ''' KNAPSACK INITIALIZATION '''
 def initialize_knapsack():
@@ -23,7 +25,7 @@ def initialize_knapsack():
     knapsack = []
 
     # number of bars and list of all indices
-    num_bars = len(BAR_LIST)
+    num_bars = len(config.BAR_LIST)
 
     # add random first bar to knapsack
     first = random.randint(0,num_bars-1)
@@ -38,8 +40,8 @@ def initialize_knapsack():
 ''' BAR UTILITY '''
 def bar_utility1(bar):
     # some function of cost and stars
-    stars = BAR_LIST[bar][2]
-    dollars = len(BAR_LIST[bar][3])
+    stars = config.BAR_LIST[bar][2]
+    dollars = len(config.BAR_LIST[bar][3])
 
     # utility function of stars and dollars
     utility = stars + (5 - dollars)
