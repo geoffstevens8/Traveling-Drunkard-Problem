@@ -44,7 +44,7 @@ def bar_utility1(bar):
     dollars = len(config.BAR_LIST[bar][3])
 
     # utility function of stars and dollars
-    utility = stars + (5 - dollars)
+    utility = float(stars) + (5 - dollars)
 
     return utility
 
@@ -116,15 +116,15 @@ def simulated_annealing_knapsack(max_distance, tsp_solver, temperature=temperatu
         # decide whether to add, remove, or swap as a function of distance
         p = random.uniform(0, 1)
         if (p < (1./3)) and (len(not_knapsack) > 0):
-            new_knapsack, new_not_knapsack = add(knapsack)
+            new_knapsack, new_not_knapsack = add(knapsack, not_knapsack)
         elif (p < (2./3)) and (len(knapsack) > 0):
-            new_knapsack, new_not_knapsack = remove(knapsack)
+            new_knapsack, new_not_knapsack = remove(knapsack, not_knapsack)
         else:
-            new_knapsack, new_not_knapsack = swap(knapsack)
+            new_knapsack, new_not_knapsack = swap(knapsack, not_knapsack)
 
         # calculate distance and utility of new knapsack
         new_distance, new_route = tsp_solver(new_knapsack)
-        new_utility = knapsack_utility(new_knapsack)
+        new_utility = knapsack_utility(new_knapsack, bar_utility)
 
         # finalize the changes based on higher utility or temperature function
         if new_distance <= max_distance:
