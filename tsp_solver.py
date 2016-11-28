@@ -34,7 +34,7 @@ def greedyTour(bars):
   #find the first and second bars greedily
   visited_bars = []
   total_distance = 0
-  
+
   if len(bars) == 1:
     return (0, bars)
   else:
@@ -52,7 +52,7 @@ def greedyTour(bars):
 
     #from the second bar continue to pick the next clostest bar
     while bars:
-      min_dist = float('inf') 
+      min_dist = float('inf')
       for bar in bars:
         if int(dist_matrix[prev_bar][bar]) < min_dist:
           min_dist = int(dist_matrix[prev_bar][bar])

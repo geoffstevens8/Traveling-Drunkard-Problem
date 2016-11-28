@@ -117,7 +117,7 @@ def simulated_annealing_knapsack(max_distance, tsp_solver, temperature=temperatu
         p = random.uniform(0, 1)
         if (p < (1./3)) and (len(not_knapsack) > 0):
             new_knapsack, new_not_knapsack = add(knapsack, not_knapsack)
-        elif (p < (2./3)) and (len(knapsack) > 0):
+        elif (p < (2./3)) and (len(knapsack) > 1):
             new_knapsack, new_not_knapsack = remove(knapsack, not_knapsack)
         else:
             new_knapsack, new_not_knapsack = swap(knapsack, not_knapsack)
@@ -128,7 +128,7 @@ def simulated_annealing_knapsack(max_distance, tsp_solver, temperature=temperatu
 
         # finalize the changes based on higher utility or temperature function
         if new_distance <= max_distance:
-            if (new_utility > utility) or (random.random < temperature(j, new_utility)):
+            if (new_utility > utility) or (random.random < temperature(i, new_utility)):
                 knapsack = copy.deepcopy(new_knapsack)
                 not_knapsack = copy.deepcopy(new_not_knapsack)
                 route = copy.deepcopy(new_route)
