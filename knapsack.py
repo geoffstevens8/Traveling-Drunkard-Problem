@@ -137,7 +137,7 @@ def simulated_annealing_knapsack(max_distance, tsp_solver, temperature=temperatu
 
         # finalize the changes based on higher utility or temperature function
         if new_distance <= max_distance:
-            if (new_utility > utility) or (random.random < temperature(i, new_utility)):
+            if (new_utility > utility) or (random.uniform(0,1) < temperature(i, new_utility)):
                 knapsack = copy.deepcopy(new_knapsack)
                 not_knapsack = copy.deepcopy(new_not_knapsack)
                 route = copy.deepcopy(new_route)
