@@ -60,8 +60,8 @@ def knapsack_utility(knapsack, utility):
     return total_utility
 
 ''' TEMPERATURE FUNCTION '''
-def temperature1(index, utility):
-    return (1./(index+1)) + (1./utility)
+def temperature1(index, difference):
+    return (1./(index+2)) #+ (1./(difference+.0001))
 
 ''' MUTATE KNAPSACK FUNCTIONS '''
 def add(knapsack, not_knapsack):
@@ -120,7 +120,7 @@ def simulated_annealing_knapsack(max_distance, tsp_solver, temperature=temperatu
     all_utilities.append(utility)
 
     # simulated annealing
-    for i in range(300):
+    for i in range(1000):
 
         # decide whether to add, remove, or swap as a function of distance
         p = random.uniform(0, 1)
@@ -137,7 +137,7 @@ def simulated_annealing_knapsack(max_distance, tsp_solver, temperature=temperatu
 
         # finalize the changes based on higher utility or temperature function
         if new_distance <= max_distance:
-            if (new_utility > utility) or (random.uniform(0,1) < temperature(i, new_utility)):
+            if (new_utility > utility) or (random.uniform(0,1) < temperature(i, utility-new_utility)):
                 knapsack = copy.deepcopy(new_knapsack)
                 not_knapsack = copy.deepcopy(new_not_knapsack)
                 route = copy.deepcopy(new_route)
