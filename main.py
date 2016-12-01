@@ -37,8 +37,20 @@ import config
 import matplotlib.pyplot as plt
 import numpy as np
 
-(r, d, u) = knapsack.simulated_annealing_knapsack(30000, tsp_solver.greedyTour)
+(r, d, u) = knapsack.simulated_annealing_knapsack(10000, tsp_solver.greedyTour)
 
+'''
+Generate Google Maps URL
+'''
+
+url = 'https://www.google.com/maps/dir/'
+for bar in r:
+	string = config.BAR_LIST[bar][1].replace(' ', '+')
+	url += string + '/'
+url += 'data=!4m2!4m1!3e0' #'data=!4m2!4m1!3e2'
+print url
+
+"""
 '''
 plot some stuff with 2 axes with different scales
 '''
@@ -58,3 +70,4 @@ for tl in ax2.get_yticklabels():
 plt.show()
 
 print(len(r))
+"""
