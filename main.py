@@ -37,7 +37,7 @@ import config
 import matplotlib.pyplot as plt
 import numpy as np
 
-(r, d, u) = knapsack.simulated_annealing_knapsack(10000, tsp_solver.greedyTour)
+(r, d, u) = knapsack.simulated_annealing_knapsack(10000, 'greedy')
 
 '''
 Generate Google Maps URL

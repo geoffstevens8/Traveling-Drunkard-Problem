@@ -12,6 +12,7 @@ import tsp_solver
 import random
 import copy
 import csv
+import sys
 
 import config
 config.init()
@@ -103,7 +104,15 @@ def swap(knapsack, not_knapsack):
 
 
 ''' ----- SIMULATED ANNEALING ----- '''
-def simulated_annealing_knapsack(max_distance, tsp_solver, temperature=temperature1, bar_utility=bar_utility1):
+def simulated_annealing_knapsack(max_distance, tsp_selection, temperature=temperature1, bar_utility=bar_utility1):
+
+    # select the proper tsp solver
+    if tsp_selection == 'greedy':
+        tsp_solve = tsp_solver.greedyTour
+    elif tsp_selection == 'two-opt':
+        tsp_solve = tsp_solver.twoOptTour
+    else:
+        sys.exit('Not an accepted TSP solver')
 
     # list to keep track of evolving
     all_distances = []
@@ -113,7 +122,7 @@ def simulated_annealing_knapsack(max_distance, tsp_solver, temperature=temperatu
     knapsack, not_knapsack = initialize_knapsack()
 
     # calculate initial distance of knapsack
-    distance, route = tsp_solver(knapsack)
+    distance, route = tsp_solve(knapsack)
     utility = knapsack_utility(knapsack, bar_utility)
 
     all_distances.append(distance)
@@ -132,7 +141,7 @@ def simulated_annealing_knapsack(max_distance, tsp_solver, temperature=temperatu
             new_knapsack, new_not_knapsack = swap(knapsack, not_knapsack)
 
         # calculate distance and utility of new knapsack
-        new_distance, new_route = tsp_solver(new_knapsack)
+        new_distance, new_route = tsp_solve(new_knapsack)
         new_utility = knapsack_utility(new_knapsack, bar_utility)
 
         # finalize the changes based on higher utility or temperature function
