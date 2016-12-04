@@ -16,4 +16,6 @@ Run the file run.py with the following options:
 - --distance DISTANCE: replace DISTANCE with the maximum distance you want for the bar crawl, default is 10,000
 - --tsp TSP ALGORITHM: replace TSP ALGORITHM with the TSP solver you wish to use (options: random, greedy, two-opt), default is greedy
 - --print-url: add this option if you want a URL to Google Maps with the bar crawl
-- --graphs: add this option if you want to print some informational graphs about the crawl 
+- --graphs: add this option if you want to print some informational graphs about the crawl
+
+Example: python run.py --distance 10000 --tsp two-opt --print-url --graphs 
