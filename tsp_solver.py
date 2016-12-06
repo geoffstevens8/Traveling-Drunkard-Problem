@@ -101,8 +101,8 @@ def simulatedAnnealingTour(bars):
   cooling_factor = 0.95
   for i in range(1000):
     n = random.randint(0, len(current_route) - 1)
-    m = random.randint(0, len(current_route) - 1)
-    new_route = simpleSwap(current_route, n, m)
+    m = random.randint(n, len(current_route) - 1)
+    new_route = twoOptSwap(current_route, n, m)
     new_distance = getRouteDistance(new_route)
     difference = new_distance - current_distance
     if (difference < 0) or (random.uniform(0,1) < exp(-difference/current_temp)):
