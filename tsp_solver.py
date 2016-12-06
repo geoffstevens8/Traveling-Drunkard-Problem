@@ -1,5 +1,6 @@
 import csv
 import random
+import copy
 from math import exp
 from random import shuffle 
 
@@ -88,20 +89,24 @@ def twoOptTour(bars):
           is_swap = True
   return (best_distance, best_route)
 
+def simpleSwap(bars, i, k):
+  bars[i], bars[k] = bars[k], bars[i]
+  return bars
+
 def simulatedAnnealingTour(bars):
   """Returns route based on simulated annealing algorithm"""
   current_route = bars
   current_distance = getRouteDistance(bars)
-  current_temp = 1e50
-  cooling_factor = 0.99
+  current_temp = 1e10
+  cooling_factor = 0.95
   for i in range(1000):
     n = random.randint(0, len(current_route) - 1)
-    m = random.randint(n + 1, len(current_route))
-    new_route = twoOptSwap(bars, n, m)
+    m = random.randint(0, len(current_route) - 1)
+    new_route = simpleSwap(current_route, n, m)
     new_distance = getRouteDistance(new_route)
     difference = new_distance - current_distance
     if (difference < 0) or (random.uniform(0,1) < exp(-difference/current_temp)):
-      current_route = new_route
+      current_route = copy.deepcopy(new_route)
       current_distance = new_distance
     current_temp *= cooling_factor
   return (current_distance, current_route)
