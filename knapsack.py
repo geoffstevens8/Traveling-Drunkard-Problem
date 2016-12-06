@@ -13,6 +13,7 @@ import random
 import copy
 import csv
 import sys
+from math import exp
 
 import config
 config.init()
@@ -61,8 +62,13 @@ def knapsack_utility(knapsack, utility):
     return total_utility
 
 ''' TEMPERATURE FUNCTION '''
-def temperature1(index, difference):
+def simple(index, difference):
     return (1./(index+2)) #+ (1./(difference+.0001))
+
+def kirkpatrick(index, difference):
+    current_temp = 1e10 * 0.95**(index)
+    return exp(-difference/current_temp)
+
 
 ''' MUTATE KNAPSACK FUNCTIONS '''
 def add(knapsack, not_knapsack):
@@ -104,7 +110,7 @@ def swap(knapsack, not_knapsack):
 
 
 ''' ----- SIMULATED ANNEALING ----- '''
-def simulated_annealing_knapsack(max_distance, tsp_selection, temperature=temperature1, bar_utility=bar_utility1):
+def simulated_annealing_knapsack(max_distance, tsp_selection, temperature=simple, bar_utility=bar_utility1):
 
     # select the proper tsp solver
     if tsp_selection == 'greedy':
@@ -118,10 +124,12 @@ def simulated_annealing_knapsack(max_distance, tsp_selection, temperature=temper
     else:
         sys.exit('Not an accepted TSP solver')
 
-    if temperature == 'temperature1':
-        temp_function = temperature1
+    if temperature == 'simple':
+        temp_function = simple
+    elif temperature == 'kirkpatrick':
+        temp_function = kirkpatrick
     else:
-        sys.exit('Not an accepted TSP solver')
+        sys.exit('Not an accepted temperature function solver')
 
 
     # list to keep track of evolving
