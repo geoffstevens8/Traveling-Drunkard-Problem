@@ -92,7 +92,7 @@ def simulatedAnnealingTour(bars):
   """Returns route based on simulated annealing algorithm"""
   current_route = bars
   current_distance = getRouteDistance(bars)
-  current_temp = 1e10
+  current_temp = 1e50
   cooling_factor = 0.99
   for i in range(1000):
     n = random.randint(0, len(current_route) - 1)
@@ -100,7 +100,7 @@ def simulatedAnnealingTour(bars):
     new_route = twoOptSwap(bars, n, m)
     new_distance = getRouteDistance(new_route)
     difference = new_distance - current_distance
-    if (difference < 0) or (random.uniform(0,1) < exp(difference/current_temp)):
+    if (difference < 0) or (random.uniform(0,1) < exp(-difference/current_temp)):
       current_route = new_route
       current_distance = new_distance
     current_temp *= cooling_factor
