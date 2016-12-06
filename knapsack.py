@@ -113,6 +113,8 @@ def simulated_annealing_knapsack(max_distance, tsp_selection, temperature=temper
         tsp_solve = tsp_solver.twoOptTour
     elif tsp_selection == 'random':
         tsp_solve = tsp_solver.randomTour
+    elif tsp_selection == 'sa':
+        tsp_solve = tsp_solver.simulatedAnnealingTour
     else:
         sys.exit('Not an accepted TSP solver')
 

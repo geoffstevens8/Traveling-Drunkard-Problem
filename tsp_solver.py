@@ -1,6 +1,9 @@
 import csv
-from random import shuffle
+import random
+from math import exp
+from random import shuffle 
 
+#load in the distance matix
 dist_matrix = []
 with open('distance_matrix.csv', 'rb') as f:
     reader = csv.reader(f)
@@ -8,6 +11,7 @@ with open('distance_matrix.csv', 'rb') as f:
         dist_matrix.append(row)
 
 def getRouteDistance(bars):
+  """Returns total distance of a given bar route."""
   total_distance = 0
   prev_bar = bars[0]
   for i in range(1, len(bars)):
@@ -15,20 +19,17 @@ def getRouteDistance(bars):
     prev_bar = bars[i]
   return total_distance
 
-
-
 def randomTour(bars):
-  """Function returns length of random bar tour and the path of the tour"""
+  """Returns length of random bar tour and the path of the tour."""
   shuffle(bars)
   total_distance = getRouteDistance(bars)
   return (total_distance, bars)
 
 def greedyTour(bars):
   """
-  Function returns length of greedy bar tour and the path of the tour
-
-  Starts by finding the shortest path among all the given bars,
-  and then choses the next closest bar until all bars have been visited
+  Function returns length of greedy bar tour and the path of the tour.
+  Starts by finding the shortest path among all the given bars, then
+  choses the next closest bar until all bars have been visited.
   """
 
   #find the first and second bars greedily
@@ -64,13 +65,14 @@ def greedyTour(bars):
     return (total_distance, visited_bars)
 
 def twoOptSwap(bars, i, k):
+  """Returns a new route given indicies i and k by making swaps according to the 2-pot alogrith"""
   route_begin = bars[:i]
   route_middle = bars[i:k + 1][::-1]
   route_end = bars[k+1:]
   return route_begin + route_middle + route_end
 
-
 def twoOptTour(bars):
+  """Returns length of bar crawl using 2opt alogrithm."""
   best_distance = getRouteDistance(bars)
   best_route = bars
   is_swap = True
@@ -85,3 +87,25 @@ def twoOptTour(bars):
           best_route = new_route
           is_swap = True
   return (best_distance, best_route)
+
+def simulatedAnnealingTour(bars):
+  """Returns route based on simulated annealing algorithm"""
+  current_route = bars
+  current_distance = getRouteDistance(bars)
+  current_temp = 1e10
+  cooling_factor = 0.99
+  for i in range(1000):
+    n = random.randint(0, len(current_route) - 1)
+    m = random.randint(n + 1, len(current_route))
+    new_route = twoOptSwap(bars, n, m)
+    new_distance = getRouteDistance(new_route)
+    difference = new_distance - current_distance
+    if (difference < 0) or (random.uniform(0,1) < exp(difference/current_temp)):
+      current_route = new_route
+      current_distance = new_distance
+    current_temp *= cooling_factor
+  return (current_distance, current_route)
+
+
+
+
