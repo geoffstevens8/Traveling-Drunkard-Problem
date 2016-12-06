@@ -94,10 +94,10 @@ if __name__ == '__main__':
     print('\n')
     print('RESULTS')
     print('Final bar crawl: ' + str(r))
-    print('Utility: ' + u[-1])
+    print('Utility: ' + str(u[-1]))
     print('\n')
     if options.url:
         print('Visit this url to see your crawl: ' + url)
-    print('\n')
+        print('\n')
 
     print('***********************************************')
