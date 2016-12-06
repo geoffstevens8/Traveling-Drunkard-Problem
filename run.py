@@ -29,6 +29,10 @@ def readCommand(argv):
                     default = False,
                     action = 'store_true',
                     help = 'Show some graphs about the generated results')
+    parser.add_option('--temp',
+                    dest = 'temp',
+                    default = 'temperature1',
+                    help = 'Provide a temperature function for the simulated annealing')
     (options, args) = parser.parse_args(argv)
     return options
 
@@ -41,9 +45,11 @@ if __name__ == '__main__':
     dist = options.dist
     tsp = options.tsp
     tsp = tsp.lower()
+    temp = options.temp
+    temp = tsp.lower()
 
     # run the simulated annealing algorithm
-    (r, n, d, u) = knapsack.simulated_annealing_knapsack(dist, tsp)
+    (r, n, d, u) = knapsack.simulated_annealing_knapsack(dist, tsp, temp)
 
     # generate a url for Google Maps
     if options.url:
@@ -105,6 +111,7 @@ if __name__ == '__main__':
     print('SPECIFICATIONS')
     print('Maximum distance: ' + str(dist))
     print('TSP Solver: ' + tsp)
+    print('Temperature Function: ' + temp)
     print('\n')
     print('RESULTS')
     print('Final bar crawl: ' + str(r))
