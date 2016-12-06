@@ -118,6 +118,12 @@ def simulated_annealing_knapsack(max_distance, tsp_selection, temperature=temper
     else:
         sys.exit('Not an accepted TSP solver')
 
+    if temperature == 'temperature1':
+        temp_function = temperature1
+    else:
+        sys.exit('Not an accepted TSP solver')
+
+
     # list to keep track of evolving
     all_distances = []
     all_utilities = []
@@ -152,7 +158,7 @@ def simulated_annealing_knapsack(max_distance, tsp_selection, temperature=temper
 
         # finalize the changes based on higher utility or temperature function
         if new_distance <= max_distance:
-            if (new_utility > utility) or (random.uniform(0,1) < temperature(i, utility-new_utility)):
+            if (new_utility > utility) or (random.uniform(0,1) < temp_function(i, utility-new_utility)):
                 knapsack = copy.deepcopy(new_knapsack)
                 not_knapsack = copy.deepcopy(new_not_knapsack)
                 route = copy.deepcopy(new_route)
