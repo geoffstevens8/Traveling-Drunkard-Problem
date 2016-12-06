@@ -89,10 +89,6 @@ def twoOptTour(bars):
           is_swap = True
   return (best_distance, best_route)
 
-def simpleSwap(bars, i, k):
-  bars[i], bars[k] = bars[k], bars[i]
-  return bars
-
 def simulatedAnnealingTour(bars):
   """Returns route based on simulated annealing algorithm"""
   current_route = bars
