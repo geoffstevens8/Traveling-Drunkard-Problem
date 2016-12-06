@@ -46,7 +46,7 @@ if __name__ == '__main__':
     tsp = options.tsp
     tsp = tsp.lower()
     temp = options.temp
-    temp = tsp.lower()
+    temp = temp.lower()
 
     # run the simulated annealing algorithm
     (r, n, d, u) = knapsack.simulated_annealing_knapsack(dist, tsp, temp)
