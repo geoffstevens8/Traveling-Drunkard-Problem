@@ -10,7 +10,7 @@ import numpy as np
 
 
 dist = 20000
-tsps = ['random', 'greedy', 'two-opt']
+tsps = ['random', 'greedy', 'two-opt', 'sa']
 
 all_tsps = []
 
@@ -25,5 +25,6 @@ plt.figure()
 random_plot, = plt.plot(all_tsps[0], label='random')
 greedy_plot, = plt.plot(all_tsps[1], label='greedy')
 twoopt_plot, = plt.plot(all_tsps[2], label='twoopt')
-plt.legend([random_plot, greedy_plot, twoopt_plot], ['Random', 'Greedy', 'Two-Opt'])
+sa_plot, = plt.plot(all_tsps[3], label='sa')
+plt.legend([random_plot, greedy_plot, twoopt_plot, sa_plot], ['Random', 'Greedy', 'Two-Opt', 'SA'])
 plt.show()
