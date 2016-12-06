@@ -43,7 +43,7 @@ if __name__ == '__main__':
     tsp = tsp.lower()
 
     # run the simulated annealing algorithm
-    (r, d, u) = knapsack.simulated_annealing_knapsack(dist, tsp)
+    (r, n, d, u) = knapsack.simulated_annealing_knapsack(dist, tsp)
 
     # generate a url for Google Maps
     if options.url:
@@ -56,8 +56,9 @@ if __name__ == '__main__':
     # display graphs if requested
     if options.graphs:
 
-        # utility and distance vs iteration
-        #plt.figure(1)
+        '''
+        UNCOMMENT TO SEE INDIVIDUAL SPECIFIC PLOTS
+
         fig, ax1 = plt.subplots()
         ax1.plot(d, 'b-')
         ax1.set_xlabel('Iteration')
@@ -83,6 +84,19 @@ if __name__ == '__main__':
         plt.xlabel('Iteration')
         plt.ylabel('Utility of Crawl')
         plt.show(3)
+        '''
+
+        # combines all graphs into one window
+        fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(12, 12), tight_layout=True)
+        ax[0,0].plot(d, color='r')
+        ax[0,0].set_title('Distance')
+        ax[0,1].plot(u, color='g')
+        ax[0,1].set_title('Utility')
+        ax[1,0].plot(n, color='k')
+        ax[1,0].set_title('Number of Bars in Crawl')
+        ax[1,1].plot([a/b for a,b in zip(u,n)])
+        ax[1,1].set_title('Utility per Bar')
+        plt.show()
 
     # display essential information after the program has run
     print('\n')

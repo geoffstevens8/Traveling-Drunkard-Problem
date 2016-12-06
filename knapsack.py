@@ -119,6 +119,7 @@ def simulated_annealing_knapsack(max_distance, tsp_selection, temperature=temper
     # list to keep track of evolving
     all_distances = []
     all_utilities = []
+    all_num = []
 
     # initialize the knapsack
     knapsack, not_knapsack = initialize_knapsack()
@@ -129,6 +130,7 @@ def simulated_annealing_knapsack(max_distance, tsp_selection, temperature=temper
 
     all_distances.append(distance)
     all_utilities.append(utility)
+    all_num.append(len(route))
 
     # simulated annealing
     for i in range(1000):
@@ -157,6 +159,7 @@ def simulated_annealing_knapsack(max_distance, tsp_selection, temperature=temper
 
         all_distances.append(distance)
         all_utilities.append(utility)
+        all_num.append(len(route))
 
     # return the final route and utility
-    return (route, all_distances, all_utilities)
+    return (route, all_num, all_distances, all_utilities)
