@@ -33,8 +33,11 @@ def readCommand(argv):
     return options
 
 if __name__ == '__main__':
+
+    # read in the command line arguments
     options = readCommand(sys.argv)
 
+    # assign variables based on input
     dist = options.dist
     tsp = options.tsp
     tsp = tsp.lower()
@@ -50,7 +53,11 @@ if __name__ == '__main__':
         	url += string + '/'
         url += 'data=!4m2!4m1!3e0' #'data=!4m2!4m1!3e2'
 
+    # display graphs if requested
     if options.graphs:
+
+        # utility and distance vs iteration
+        #plt.figure(1)
         fig, ax1 = plt.subplots()
         ax1.plot(d, 'b-')
         ax1.set_xlabel('Iteration')
@@ -63,8 +70,21 @@ if __name__ == '__main__':
         ax2.set_ylabel('Utility', color='r')
         for tl in ax2.get_yticklabels():
             tl.set_color('r')
-        plt.show()
+        plt.show(1)
 
+        plt.figure(2)
+        plt.plot(d)
+        plt.xlabel('Iteration')
+        plt.ylabel('Distance of Crawl')
+        plt.show(2)
+
+        plt.figure(3)
+        plt.plot(u)
+        plt.xlabel('Iteration')
+        plt.ylabel('Utility of Crawl')
+        plt.show(3)
+
+    # display essential information after the program has run
     print('\n')
     print('***********************************************')
     print('\n')
@@ -74,6 +94,7 @@ if __name__ == '__main__':
     print('\n')
     print('RESULTS')
     print('Final bar crawl: ' + str(r))
+    print('Utility: ' + u[-1])
     print('\n')
     if options.url:
         print('Visit this url to see your crawl: ' + url)
