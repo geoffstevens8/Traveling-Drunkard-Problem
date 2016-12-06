@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def readCommand(argv):
-    parser = optparse.OptionParser(description = 'Run public tests on student code')
+    parser = optparse.OptionParser(description = 'Run code')
     parser.add_option('--distance',
                     dest = 'dist',
                     type = 'int',
