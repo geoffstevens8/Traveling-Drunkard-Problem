@@ -31,7 +31,7 @@ def readCommand(argv):
                     help = 'Show some graphs about the generated results')
     parser.add_option('--temp',
                     dest = 'temp',
-                    default = 'temperature1',
+                    default = 'simple',
                     help = 'Provide a temperature function for the simulated annealing')
     (options, args) = parser.parse_args(argv)
     return options
