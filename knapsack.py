@@ -170,7 +170,6 @@ def simulated_annealing_knapsack(max_distance, tsp_selection, temperature=simple
         new_distance, new_route = tsp_solve(new_knapsack)
         new_utility = knapsack_utility(new_knapsack, bar_utility)
 
-        #print(str(len(new_knapsack) - len(new_route)))
         # finalize the changes based on higher utility or temperature function
         if (new_distance <= max_distance) and (len(new_route) < bar_limit + 1):
             if (new_utility > utility) or (random.uniform(0,1) < temp_function(i, utility-new_utility)):

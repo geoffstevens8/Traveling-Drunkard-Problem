@@ -40,25 +40,16 @@ def greedyTour(bars):
   if len(bars) == 1:
     return (0, bars)
   else:
-    min_dist = float('inf')
-    for i in range(len(bars)):
-      for j in range(i + 1, len(bars)):
-        if int(dist_matrix[i][j]) < min_dist:
-          min_dist = int(dist_matrix[i][j])
-          first_bar = i
-          second_bar = j
-    total_distance += min_dist
-    visited_bars.extend([first_bar, second_bar])
+    first_bar = random.choice(bars)
+    visited_bars.append(first_bar)
     bars = [i for j,i in enumerate(bars) if i not in visited_bars]
-    prev_bar = second_bar
-
-    #from the second bar continue to pick the next clostest bar
+    prev_bar = first_bar
     while bars:
       min_dist = float('inf')
-      for bar in bars:
-        if int(dist_matrix[prev_bar][bar]) < min_dist:
-          min_dist = int(dist_matrix[prev_bar][bar])
-          next_bar = bar
+      for current_bar in bars:
+        if int(dist_matrix[prev_bar][current_bar]) < min_dist:
+          min_dist = int(dist_matrix[prev_bar][current_bar])
+          next_bar = current_bar
       total_distance += min_dist
       visited_bars.append(next_bar)
       bars = [i for j,i in enumerate(bars) if i not in visited_bars]
