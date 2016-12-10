@@ -5,6 +5,11 @@
 ### Python Files
 - parser.py: scrapes Yelp for businesses
 - distance_matrix_builder.py: builds a matrix of time and distance between all businesses for easy lookup in algorithms
+- knapsack.py: implements the simulated annealing to select the best bars for the crawl
+- tsp_solver.py: implements the TSP solving algorithms to find the distance of a given knapsack
+- config.py: contains scripts to import list of bars and other miscellaneous necessities to run algorithms
+- run.py: build a bar crawl, explained below
+- run_multiple.py: builds multiple bar crawls for comparison of TSP solvers, explained below
 
 ### Data Files
 - biz_list.csv: list of businesses with name, address, stars, and price

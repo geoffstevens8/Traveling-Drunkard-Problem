@@ -116,6 +116,13 @@ if __name__ == '__main__':
     print('RESULTS')
     print('Final bar crawl: ' + str(r))
     print('Utility: ' + str(u[-1]))
+    print('Bars and Addresses:')
+    counter = 1
+    for bar in r:
+        pbar = config.BAR_LIST[bar][0]
+        paddress = config.BAR_LIST[bar][1]
+        print(str(counter) + '. ' + pbar + ' at ' + paddress)
+        counter += 1
     print('\n')
     if options.url:
         print('Visit this url to see your crawl: ' + url)
