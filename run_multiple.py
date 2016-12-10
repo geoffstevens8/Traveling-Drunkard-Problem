@@ -35,7 +35,7 @@ def readCommand(argv):
                     help = 'Provide a temperature function for the simulated annealing')
     parser.add_option('--length',
                     dest = 'length',
-                    type = 'int', 
+                    type = 'int',
                     default = -1,
                     help = 'Provide a maximum to the number of bars in the crawl')
     (options, args) = parser.parse_args(argv)
@@ -107,6 +107,35 @@ if __name__ == '__main__':
 
         fig.legend([random_plot, greedy_plot, twoopt_plot, sa_plot], ['Random', 'Greedy', 'Two-Opt', 'SA'], 'upper left')
         plt.show()
+
+        print('\n')
+        print('***********************************************')
+        print('\n')
+        print('SPECIFICATIONS')
+        print('Maximum distance: ' + str(dist))
+        print('Iterations: ' + str(iterations))
+        print('Temperature Function: ' + temp)
+        print('Maximum Number of Bars: ' + str(length))
+        print('\n')
+        print('RESULTS')
+        print('Average Utility')
+        print('Random: ' + str( sum(all_tsps_u[0]) / float(iterations)) )
+        print('Greedy: ' + str( sum(all_tsps_u[1]) / float(iterations)) )
+        print('Two-opt: ' + str( sum(all_tsps_u[2]) / float(iterations)) )
+        print('Simulated Annealing: ' + str( sum(all_tsps_u[3]) / float(iterations)) )
+        print('\n')
+        print('Average Distance')
+        print('Random: ' + str( sum(all_tsps_d[0]) / float(iterations)) )
+        print('Greedy: ' + str( sum(all_tsps_d[1]) / float(iterations)) )
+        print('Two-opt: ' + str( sum(all_tsps_d[2]) / float(iterations)) )
+        print('Simulated Annealing: ' + str( sum(all_tsps_d[3]) / float(iterations)) )
+        print('\n')
+        print('Average Number of Bars')
+        print('Random: ' + str( sum(all_tsps_n[0]) / float(iterations)) )
+        print('Greedy: ' + str( sum(all_tsps_n[1]) / float(iterations)) )
+        print('Two-opt: ' + str( sum(all_tsps_n[2]) / float(iterations)) )
+        print('Simulated Annealing: ' + str( sum(all_tsps_n[3]) / float(iterations)) )
+        print('\n')
 
         '''
         UNCOMMENT FOR INDIVIDUAL PLOTS
