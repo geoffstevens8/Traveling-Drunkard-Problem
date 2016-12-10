@@ -33,6 +33,11 @@ def readCommand(argv):
                     dest = 'temp',
                     default = 'simple',
                     help = 'Provide a temperature function for the simulated annealing')
+    parser.add_option('--length',
+                    dest = 'length',
+                    type = 'int',
+                    default = -1,
+                    help = 'Provide a maximum to the number of bars in the crawl')
     (options, args) = parser.parse_args(argv)
     return options
 
@@ -47,9 +52,13 @@ if __name__ == '__main__':
     tsp = tsp.lower()
     temp = options.temp
     temp = temp.lower()
+    if options.length == -1:
+        length = None
+    else:
+        length = int(options.length)
 
     # run the simulated annealing algorithm
-    (r, n, d, u) = knapsack.simulated_annealing_knapsack(dist, tsp, temp)
+    (r, n, d, u) = knapsack.simulated_annealing_knapsack(dist, tsp, temperature=temp, bar_limit=length)
 
     # generate a url for Google Maps
     if options.url:
@@ -112,9 +121,11 @@ if __name__ == '__main__':
     print('Maximum distance: ' + str(dist))
     print('TSP Solver: ' + tsp)
     print('Temperature Function: ' + temp)
+    print('Maximum Number of Bars: ' + str(length))
     print('\n')
     print('RESULTS')
     print('Final bar crawl: ' + str(r))
+    print('Distance: ' + str(d[-1]) + ' meters')
     print('Utility: ' + str(u[-1]))
     print('Bars and Addresses:')
     counter = 1

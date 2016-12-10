@@ -33,6 +33,11 @@ def readCommand(argv):
                     dest = 'temp',
                     default = 'simple',
                     help = 'Provide a temperature function for the simulated annealing')
+    parser.add_option('--length',
+                    dest = 'length',
+                    type = 'int', 
+                    default = -1,
+                    help = 'Provide a maximum to the number of bars in the crawl')
     (options, args) = parser.parse_args(argv)
     return options
 
@@ -48,6 +53,10 @@ if __name__ == '__main__':
     temp = options.temp
     temp = temp.lower()
     iterations = options.iterations
+    if options.length == -1:
+        length = None
+    else:
+        length = int(options.length)
 
     tsps = ['random', 'greedy', 'two-opt', 'sa']
 
@@ -60,7 +69,7 @@ if __name__ == '__main__':
         ds = []
         ns = []
         for i in range(iterations):
-            (r, n, d, u) = knapsack.simulated_annealing_knapsack(dist, tsp, temp)
+            (r, n, d, u) = knapsack.simulated_annealing_knapsack(dist, tsp, temperature=temp, bar_limit=length)
             us.append(u[-1])
             ds.append(d[-1])
             ns.append(n[-1])
