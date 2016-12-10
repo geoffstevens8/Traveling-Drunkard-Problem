@@ -4,14 +4,17 @@ import string
 import csv
 import time
 
+# master list of all businesses
 allbiz = []
 
-for pagenum in range(0, 21, 10):
+# iterate over Yelp pages
+for pagenum in range(0, 41, 10):
     time.sleep(15)
     page = requests.get("https://www.yelp.com/search?find_desc=Bars&find_loc=Boston,+MA&start=" + str(pagenum))
     soup = BeautifulSoup(page.text, 'html.parser')
     businesses = soup.find_all("li", attrs={"class": "regular-search-result"})
 
+    # grab all businesses from a page and iterate over each
     for business in businesses:
         # name of the business
         name = business.find("a", attrs={"class": "biz-name"}).text
@@ -40,9 +43,11 @@ for pagenum in range(0, 21, 10):
         # final list
         allbiz.append([name, address, stars, price])
 
+# display the final list of businesses
 print(allbiz)
 
-myfile = open('biz_list.csv', 'wb')
+# write all of the businesses to a csv file
+myfile = open('biz_list_2.csv', 'wb')
 wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
 for biz in allbiz:
     wr.writerow(biz)
