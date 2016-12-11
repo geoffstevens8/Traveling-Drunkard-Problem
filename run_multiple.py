@@ -99,10 +99,10 @@ if __name__ == '__main__':
         sa_plot3, = ax[1,0].plot(all_tsps_n[3], label='sa')
         ax[1,0].set_title('Number of Bars')
 
-        random_plot4, = ax[1,0].plot([a/b for a,b in zip(all_tsps_u[0], all_tsps_n[0])], label='random')
-        greedy_plot4, = ax[1,0].plot([a/b for a,b in zip(all_tsps_u[1], all_tsps_n[1])], label='greedy')
-        twoopt_plot4, = ax[1,0].plot([a/b for a,b in zip(all_tsps_u[2], all_tsps_n[2])], label='twoopt')
-        sa_plot4, = ax[1,0].plot([a/b for a,b in zip(all_tsps_u[3], all_tsps_n[3])], label='sa')
+        random_plot4, = ax[1,1].plot([a/b for a,b in zip(all_tsps_u[0], all_tsps_n[0])], label='random')
+        greedy_plot4, = ax[1,1].plot([a/b for a,b in zip(all_tsps_u[1], all_tsps_n[1])], label='greedy')
+        twoopt_plot4, = ax[1,1].plot([a/b for a,b in zip(all_tsps_u[2], all_tsps_n[2])], label='twoopt')
+        sa_plot4, = ax[1,1].plot([a/b for a,b in zip(all_tsps_u[3], all_tsps_n[3])], label='sa')
         ax[1,1].set_title('Utility per Bar')
 
         fig.legend([random_plot, greedy_plot, twoopt_plot, sa_plot], ['Random', 'Greedy', 'Two-Opt', 'SA'], 'upper left')
